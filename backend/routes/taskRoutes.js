@@ -4,7 +4,7 @@ const router = express.Router();
 const {getTasks, getTask, postTask, updateTask, deleteTask} = require("../controllers/taskController");
 const {verifyAccessToken} = require("../middlewares/index");
 
-//*//  Routes Setup :: /api/tasks
+//*//  Routes Setup :: /api/task
 
 router.get("/", verifyAccessToken, getTasks);
 router.get("/:taskId", verifyAccessToken, getTask);

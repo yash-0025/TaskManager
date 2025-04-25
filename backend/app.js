@@ -2,8 +2,11 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-
 require("dotenv").config();
+const authRoutes = require("./routes/authRoutes");
+const profileRoutes = require("./routes/profileRoutes");
+const taskRoutes = require("./routes/taskRoutes");
+
 
 app.use(express.json());
 
@@ -16,6 +19,11 @@ mongoose.connection.on('connected', () => {
 mongoose.connection.on('error', (err) => {
     console.error("Connection Failed :: ", err);
 })
+
+//*//   Routes Setup
+app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
+app.use("/api/task", taskRoutes);
 
 const port = process.env.PORT || 5001;
 app.listen(port, () => {

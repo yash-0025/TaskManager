@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const cors = require("cors");
 
 require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
@@ -9,6 +10,7 @@ const taskRoutes = require("./routes/taskRoutes");
 
 
 app.use(express.json());
+app.use(cors());
 
 const mongoUrl = process.env.MONGO_DB_URL;
 

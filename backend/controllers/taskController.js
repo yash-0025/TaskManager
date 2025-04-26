@@ -4,7 +4,7 @@ const {validateObjectId} = require("../utils/validation");
 
 exports.getTasks = async(req, res) => {
     try {
-        const tasks = await Task.find({user:req.body.id});
+        const tasks = await Task.find({user:req.user.id});
         res.status(200).json({tasks, status: true, msg:"Tasks Found Sucessfully"});
     }
 
@@ -40,7 +40,7 @@ exports.postTask = async(req,res) => {
             return res.status(400).json({status:false, msg:"Description of task not found"});
         }
         const task = await Task.create({user:req.user.id, description});
-        console.log(task);
+        // console.log(task);
         res.status(200).json({task, status: true, msg:"Task created Sucessfully"});
     }
 

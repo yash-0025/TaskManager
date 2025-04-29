@@ -35,7 +35,7 @@ const Navbar = () => {
               <li className='py-2 px-3 cursor-pointer hover:bg-rose-700 hover:text-white transition rounded-sm' onClick={handleLogout}>Logout</li>
             </>
           ) : (
-            <li className='py-2 px-3 cursor-pointer text-primary hover:bg-gray-100 transition rounded-sm'><Link to="/login">Login</Link></li>
+            <li className='py-2 px-3 cursor-pointer text-primary bg-green-400 hover:bg-gray-100 transition rounded-sm'><Link to="/login">Login</Link></li>
           )}
         </ul>
         <span className='md:hidden cursor-pointer text-2xl' onClick={toggleNavbar}><i className="fa-solid fa-bars"></i></span>
@@ -55,7 +55,8 @@ const Navbar = () => {
                 <li className='py-2 px-3 hover:bg-rose-800 hover:text-white cursor-pointer  transition rounded-sm' onClick={handleLogout}>Logout</li>
               </>
             ) : (
-              <li className='py-2 px-3 cursor-pointer text-primary hover:bg-gray-200 transition rounded-sm'><Link to="/login">Login</Link></li>
+              <li className='py-2 px-3 m-2 cursor-pointer text-primary 
+              bg-amber-400 hover:bg-green-400 transition rounded-sm'><Link to="/login">Login</Link></li>
             )}
           </ul>
         </div>

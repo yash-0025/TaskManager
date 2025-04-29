@@ -56,7 +56,7 @@ const Tooltip = ({ children, text, position = "bottom", space = 5 }) => {
   }
 
   const tooltipClasses =
-    `fixed transition ${open ? "opacity-100" : "opacity-0 "} pointer-events-none z-50 rounded-md bg-black text-white px-4 py-2 text-center w-max max-w-[150px]
+    `fixed transition ${open ? "opacity-100" : "opacity-0 "} pointer-events-none z-50 rounded-md bg-white text-black px-4 py-2 text-center w-max max-w-[150px]
       ${position === "top" && " after:absolute after:content-[''] after:left-1/2 after:top-full after:-translate-x-1/2 after:border-[10px] after:border-transparent after:border-t-black"}
       ${position === "bottom" && " after:absolute after:content-[''] after:left-1/2 after:bottom-full after:-translate-x-1/2 after:border-[10px] after:border-transparent after:border-b-black"}
       ${position === "left" && " after:absolute after:content-[''] after:top-1/2 after:left-full after:-translate-y-1/2 after:border-[10px] after:border-transparent after:border-l-black"}
@@ -78,4 +78,4 @@ const Tooltip = ({ children, text, position = "bottom", space = 5 }) => {
   )
 }
 
-export default Tooltip
+export default Tooltip 

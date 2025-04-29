@@ -61,7 +61,7 @@ exports.updateTask = async(req,res) => {
             return res.status(400).json({status: false, msg:"Task id not valid"});
         }
 
-        let task = await Task.findById(req.params.taskId);
+        let task = await Task.findByIdAndUpdate(req.params.taskId);
         if(!task) {
             return res.status(400).json({status: false, msg:"Task not found"})
         }
@@ -70,7 +70,11 @@ exports.updateTask = async(req,res) => {
             return res.status(403).json({status: false, msg:"You can update only task created by yourself"})
         }
 
-        task = await Task.findById(req.params.taskId, {description}, {new: true});
+        task = await Task.findByIdAndUpdate(
+            req.params.taskId,
+            { description },
+            { new: true }
+        );
         res.status(200).json({task, status: true, msg:"Task Updated Sucessfully"});
         
     } catch(err) {

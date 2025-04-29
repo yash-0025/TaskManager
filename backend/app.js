@@ -17,7 +17,7 @@ app.use(cors({
 }
 
 ));
-
+// app.use(cors());
 
 const mongoUrl = process.env.MONGO_DB_URL;
 

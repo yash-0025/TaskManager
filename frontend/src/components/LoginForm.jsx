@@ -1,19 +1,19 @@
- import {useState} from "react";
- import {Link, useNavigate} from "react-router-dom";
- import validateManyFields from "../validations/index";
- import Input from "./utils/Input";
- import { useDispatch, useSelector } from "react-redux";
- import { postLoginData } from "../redux/actions/authActions";
- import Loader from "./utils/Loader";
- import { useEffect } from "react";
+import {useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import validateManyFields from "../validations/index";
+import Input from "./utils/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { postLoginData } from "../redux/actions/authActions";
+import Loader from "./utils/Loader";
+import { useEffect } from "react";
 
-
- const LoginForm = ({redirectUrl}) => {
+const LoginForm = ({redirectUrl}) => {
     const [formErrors, setFormErrors] = useState({});
     const [formData, setFormData] = useState({
         email: "",
         password: ""
     });
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate();
 
@@ -37,9 +37,9 @@
 
     const handleSubmit = e => {
         e.preventDefault();
-        const error = validateManyFields("login", formData);
+        const errors = validateManyFields("login", formData);
         setFormErrors({});
-        if(error.length > 0) {
+        if(errors.length > 0) {
             setFormErrors(errors.reduce((total, ob) => ({...total, [ob.field]: ob.err}), {}))
             return;
         }
@@ -54,35 +54,97 @@
     }
 
     return (
-        <>
-        <form className='m-auto my-16 max-w-[500px] bg-white p-8 border-2 shadow-md rounded-md'>
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            <h2 className='text-center mb-4'>Welcome user, please login here</h2>
-            <div className="mb-4">
-              <label htmlFor="email" className="after:content-['*'] after:ml-0.5 after:text-red-500">Email</label>
-              <Input type="text" name="email" id="email" value={formData.email} placeholder="youremail@domain.com" onChange={handleChange} />
-              {fieldError("email")}
-            </div>
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-xl shadow-lg">
+                <div>
+                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                        Welcome Back
+                    </h2>
+                    <p className="mt-2 text-center text-sm text-gray-600">
+                        Please sign in to your account
+                    </p>
+                </div>
 
-            <div className="mb-4">
-              <label htmlFor="password" className="after:content-['*'] after:ml-0.5 after:text-red-500">Password</label>
-              <Input type="password" name="password" id="password" value={formData.password} placeholder="Your password.." onChange={handleChange} />
-              {fieldError("password")}
-            </div>
+                {loading ? (
+                    <div className="flex justify-center">
+                        <Loader />
+                    </div>
+                ) : (
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+                        <div className="rounded-md shadow-sm space-y-4">
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                                    Email address
+                                </label>
+                                <div className="mt-1">
+                                    <Input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        value={formData.email}
+                                        placeholder="youremail@domain.com"
+                                        onChange={handleChange}
+                                        className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    />
+                                </div>
+                                {fieldError("email")}
+                            </div>
 
-            <button className='bg-green-400 rounded  text-white px-4 py-2 font-medium hover:bg-primary-dark' onClick={handleSubmit}>Submit</button>
+                            <div>
+                                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                                    Password
+                                </label>
+                                <div className="mt-1 relative">
+                                    <Input
+                                        type={showPassword ? "text" : "password"}
+                                        name="password"
+                                        id="password"
+                                        value={formData.password}
+                                        placeholder="Your password.."
+                                        onChange={handleChange}
+                                        className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                                    >
+                                        {showPassword ? (
+                                            <i className="fas fa-eye-slash"></i>
+                                        ) : (
+                                            <i className="fas fa-eye"></i>
+                                        )}
+                                    </button>
+                                </div>
+                                {fieldError("password")}
+                            </div>
+                        </div>
 
-            <div className='pt-4'>
-              <Link to="/signup" className='text-blue-400'>Don't have an account? Signup here</Link>
+                        <div>
+                            <button
+                                type="submit"
+                                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                            >
+                                <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                                    <i className="fas fa-sign-in-alt"></i>
+                                </span>
+                                Sign in
+                            </button>
+                        </div>
+
+                        <div className="text-center">
+                            <Link
+                                to="/signup"
+                                className="font-medium text-blue-600 hover:text-blue-500 transition-colors duration-200"
+                            >
+                                Don't have an account? Sign up here
+                            </Link>
+                        </div>
+                    </form>
+                )}
             </div>
-          </>
-        )}
-      </form>
-        </>
+        </div>
     )
- }
+}
 
 export default LoginForm

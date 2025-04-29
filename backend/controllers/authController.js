@@ -35,7 +35,6 @@ exports.signup = async (req, res) => {
     }
 }
 
-
 exports.login = async (req,res) => {
     try {
         const {email, password} = req.body;
@@ -45,21 +44,17 @@ exports.login = async (req,res) => {
         const user = await User.findOne({ email });
         if(!user) return res.status(400).json({status: false, msg: "Email is not registered."});
 
-
-      const isMatch = await bcrypt.compare(password, user.password);
-      if(!isMatch) return res.status(400).json({status:false, msg: "Password Incorrect"});
-      
-      const token = createAccessToken({
-        id: user._id
-      });
-      delete user.password;
-      res.status(200).json({token, user, status: true, msg: "Login Sucessful.."});
+        const isMatch = await bcrypt.compare(password, user.password);
+        if(!isMatch) return res.status(400).json({status:false, msg: "Password Incorrect"});
+        
+        const token = createAccessToken({
+            id: user._id
+        });
+        delete user.password;
+        res.status(200).json({token, user, status: true, msg: "Login Sucessful.."});
     }
-    
     catch(err) {
         console.error(err);
         return res.status(500).json({status:false, msg: "Internal Server Error"});
     }
-
-
 }

@@ -12,10 +12,6 @@ const Home = () => {
         document.title = isLoggedIn ? `${user?.name || "User"}'s Tasks` : "Task Manager";
     }, [authState, isLoggedIn, user?.name]);
 
-    const handleGoogleSignIn = () => {
-        window.location.href = `${process.env.REACT_APP_API_URL}/api/auth/google`;
-    };
-
     return (
         <FixedLayout>
             {!isLoggedIn ? (
@@ -39,8 +35,8 @@ const Home = () => {
                                 <p className="text-gray-600 mb-6">
                                     Create an account to start managing your tasks effectively. It's free and takes just a minute.
                                 </p>
-                                <Link 
-                                    to="/signup" 
+                                <Link
+                                    to="/signup"
                                     className="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
                                 >
                                     Sign Up Now
@@ -56,27 +52,13 @@ const Home = () => {
                                 <p className="text-gray-600 mb-6">
                                     Log in to access your tasks and continue where you left off.
                                 </p>
-                                <div className="space-y-4">
-                                    <Link 
-                                        to="/login" 
-                                        className="inline-flex items-center justify-center w-full px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200"
-                                    >
-                                        <i className="fas fa-sign-in-alt mr-2"></i>
-                                        Log In with Email
-                                    </Link>
-                                    
-                                    <button
-                                        onClick={handleGoogleSignIn}
-                                        className="inline-flex items-center justify-center w-full px-6 py-3 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 hover:bg-gray-50 transition-colors duration-200"
-                                    >
-                                        <img 
-                                            src="https://www.google.com/favicon.ico" 
-                                            alt="Google" 
-                                            className="w-5 h-5 mr-2"
-                                        />
-                                        Continue with Google
-                                    </button>
-                                </div>
+                                <Link
+                                    to="/login"
+                                    className="inline-flex items-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200"
+                                >
+                                    Log In
+                                    <i className="fas fa-sign-in-alt ml-2"></i>
+                                </Link>
                             </div>
                         </div>
 
